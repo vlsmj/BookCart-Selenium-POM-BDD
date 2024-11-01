@@ -10,13 +10,13 @@ public class LoginPage extends BasePage {
     @FindBy(css = "input[formcontrolname='username']")
     WebElement inputUsername;
 
-    @FindBy(id = "mat-mdc-error-0")
-    WebElement usernameFieldError;
-
     @FindBy(css = "input[formcontrolname='password']")
     WebElement inputPassword;
 
-    @FindBy(id = "mat-mdc-error-1")
+    @FindBy(xpath = "//form/mat-form-field[1]//mat-error")
+    WebElement usernameFieldError;
+
+    @FindBy(xpath = "//form/mat-form-field[2]//mat-error")
     WebElement passwordFieldError;
 
     @FindBy(xpath = "//button[span[text()='Login']]")

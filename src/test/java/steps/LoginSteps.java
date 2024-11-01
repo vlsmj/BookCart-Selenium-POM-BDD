@@ -41,22 +41,22 @@ public class LoginSteps {
         loginPage.clickLogin();
     }
 
-    @Then("Username field displays the error message {string}")
-    public void usernameFieldDisplaysTheErrorMessage(String errorMessage) {
+    @Then("Username field displays the error message {string} on the login page")
+    public void usernameFieldDisplaysTheErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getUsernameFieldErrorMessage());
     }
 
-    @And("Password field displays the error message {string}")
-    public void passwordFieldDisplaysTheErrorMessage(String errorMessage) {
+    @And("Password field displays the error message {string} on the login page")
+    public void passwordFieldDisplaysTheErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getPasswordFieldErrorMessage());
     }
 
-    @Then("User should see an error message {string}")
-    public void userShouldSeeAnErrorMessage(String errorMessage) {
+    @Then("User should see an error message {string} on the login page")
+    public void userShouldSeeAnErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getErrorMessage());
     }
 
-    @Then("Login is successful and user is redirected to Home page")
+    @Then("Login is successful and user is redirected to home page")
     public void loginIsSuccessfulAndUserIsRedirectedToHomePage() {
         Assertions.assertTrue(homePage.getHomeElement().isDisplayed());
     }

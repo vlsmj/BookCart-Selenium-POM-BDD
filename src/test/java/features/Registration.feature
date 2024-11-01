@@ -1,82 +1,63 @@
-#Feature: User Registration
-#
-#  Background:
-#    Given User is on the registration page
-#
-#  Scenario: Registration attempt with empty fields and no selected gender
-#    When User enters a first name ""
-#    And User enters a last name ""
-#    And User enters a username ""
-#    And User enters a password ""
-#    And User enters a confirm password ""
-#    And User clicks the registration button
-#    Then User should see an error message "Registration not successful."
+Feature: User Registration
 
-#  Scenario: Empty input fields and no selected gender
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User clicks register button
-#    Then First name field displays an error message indicating "First Name is required"
-#    And Last name field displays an error message indicating "Last Name is required"
-#    And Username field displays an error message indicating "User Name is required"
-#    And Password field displays an error message indicating "Password is required"
-#    And Confirm password field displays an error message indicating "Password is required"
+  Background:
+    Given User is on the registration page
 
-#  Scenario: Username already exists
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters a first name "John"
-#    And User enters a last name "Doe"
-#    And User enters a username "test222"
-#    And User enters a password "Password1"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+  Scenario Outline: Registration attempt with empty fields and no selected gender
+    When User leaves empty inputs and no selected gender
+    And User clicks the register button
+    Then Input field "<input_field>" displays the error message "<error_message>" on the registration page
+    Examples:
+      | input_field      | error_message          |
+      | First Name       | First Name is required |
+      | Last Name        | Last Name is required  |
+      | Username         | User Name is required  |
+      | Password         | Password is required   |
+      | Confirm Password | Password is required   |
+
+#  Scenario: Registration attempt with an existing username
+#    When User enter valid inputs and selected a gender
+#    And User enters a username "test222" on the registration page
+#    And User clicks the register button
+#    Then User should see an error message "User Name is not available" on the registration page
 #
-#  Scenario: Password with less than 8 characters
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "1234567"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+#  Scenario: Registration attempt with a password with less than 8 characters
+#    When User enter valid inputs and selected a gender
+#    And User enters a password "1234567" on the registration page
+#    And User enters a confirm password "1234567" on the registration page
+#    And User clicks the register button
+#    Then Password field displays the error message "Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number" on the registration page
 #
-#  Scenario: Password without uppercase letter
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "password123"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+#  Scenario: Registration attempt with a password without uppercase letter
+#    When User enter valid inputs and selected a gender
+#    And User enters a password "password1" on the registration page
+#    And User enters a confirm password "password1" on the registration page
+#    And User clicks the register button
+#    Then Password field displays the error message "Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number" on the registration page
 #
-#  Scenario: Password without lowercase letter
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "PASSWORD123"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+#  Scenario: Registration attempt with a password without lowercase letter
+#    When User enter valid inputs and selected a gender
+#    And User enters a password "PASSWORD1" on the registration page
+#    And User enters a confirm password "PASSWORD1" on the registration page
+#    And User clicks the register button
+#    Then Password field displays the error message "Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number" on the registration page
 #
-#  Scenario: Password without number
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "Password"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+#  Scenario: Registration attempt with a password without number
+#    When User enter valid inputs and selected a gender
+#    And User enters a password "Password" on the registration page
+#    And User enters a confirm password "Password" on the registration page
+#    And User clicks the register button
+#    Then Password field displays the error message "Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number" on the registration page
 #
-#  Scenario: Password and confirm password do not match
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "Password123"
-#    And User enters a confirm password "Password"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
+#  Scenario: Registration attempt with non-matching password and confirm password
+#    When User enter valid inputs and selected a gender
+#    And User enters a password "Password1" on the registration page
+#    And User enters a confirm password "Password2" on the registration page
+#    And User clicks the register button
+#    Then Confirm password field displays the error message "Password do not match" on the registration page
 #
-#  Scenario: Password and confirm password do not match
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User enters a password "Password123"
-#    And User enters a confirm password "Password"
-#    And User clicks register button
-#    Then Username field displays an error message indicating "User Name is not available"
-#
-#  Scenario: User registers with valid inputs and selected gender
-#    Given User navigates to "https://bookcart.azurewebsites.net/register"
-#    When User enters valid details in all fields
-#    And User clicks register button
-#    Then User is navigated to the Login page
+#  Scenario: Registration attempt with valid inputs and a selected gender
+#    When User enter valid inputs and selected a gender
+#    And User clicks the register button
+#    Then Registration is successful and user is redirected to login page
 
