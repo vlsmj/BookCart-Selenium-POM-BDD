@@ -13,7 +13,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     public WebDriver getDriver() {

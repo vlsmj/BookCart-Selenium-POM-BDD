@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class RegistrationPage extends BasePage {
+
     @FindBy(css = "input[formcontrolname='firstname']")
     WebElement inputFirstName;
 
@@ -22,8 +23,11 @@ public class RegistrationPage extends BasePage {
     @FindBy(css = "input[formcontrolname='confirmPassword']")
     WebElement inputConfirmPassword;
 
-    @FindBy()
-    WebElement inputGender;
+    @FindBy(id = "mat-radio-2-input")
+    WebElement inputMaleGender;
+
+    @FindBy(id = "mat-radio-3-input")
+    WebElement inputFemaleGender;
 
     @FindBy(xpath = "//form/mat-form-field[1]//mat-error")
     WebElement firstNameFieldError;
@@ -40,7 +44,7 @@ public class RegistrationPage extends BasePage {
     @FindBy(xpath = "//form//mat-form-field[5]//mat-error")
     WebElement confirmPasswordFieldError;
 
-    @FindBy(xpath = "//button[span[text()='Register']]")
+    @FindBy(xpath = "//mat-card-actions//button[span[text()='Register']]")
     WebElement buttonRegister;
 
     public RegistrationPage(WebDriver driver) {
@@ -68,8 +72,28 @@ public class RegistrationPage extends BasePage {
         inputConfirmPassword.sendKeys(password);
     }
 
+    public void clearUsername() {
+        inputUsername.clear();
+    }
+
+    public void clearPassword() {
+        inputPassword.clear();
+    }
+
+    public void clearConfirmPassword() {
+        inputConfirmPassword.clear();
+    }
+
     public void setGender(String gender) {
-        inputGender.sendKeys(gender);
+        if (gender.equals("Male")) {
+            inputMaleGender.click();
+        } else {
+            inputFemaleGender.click();
+        }
+    }
+
+    public WebElement getRegisterButton() {
+        return buttonRegister;
     }
 
     public void clickRegister() {
