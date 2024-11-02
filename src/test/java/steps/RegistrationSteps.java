@@ -25,12 +25,12 @@ public class RegistrationSteps {
         loginPage = new LoginPage(driver);
     }
 
-    @Given("User is on the registration page")
+    @Given("user is on the registration page")
     public void userIsOnTheRegistrationPage() {
         registrationPage.navigateTo("https://bookcart.azurewebsites.net/register");
     }
 
-    @When("User leaves empty inputs and no selected gender")
+    @When("user leaves empty inputs and no selected gender")
     public void userLeavesEmptyInputsAndNoSelectedGender() {
         registrationPage.setFirstName("");
         registrationPage.setLastName("");
@@ -39,17 +39,17 @@ public class RegistrationSteps {
         registrationPage.setConfirmPassword("");
     }
 
-    @And("User clicks the register button")
+    @And("user clicks the register button")
     public void userClicksTheRegisterButton() {
         registrationPage.clickRegister();
     }
 
-    @Then("Input field {string} displays the error message {string} on the registration page")
+    @Then("input field {string} displays the error message {string} on the registration page")
     public void inputFieldDisplaysTheErrorMessageOnTheRegistrationPage(String inputField, String errorMessage) {
         Assertions.assertEquals(errorMessage, registrationPage.getInputFieldErrorMessage(inputField));
     }
 
-    @When("User enter valid inputs and selected a gender")
+    @When("user enter valid inputs and selected a gender")
     public void userEnterValidInputsAndSelectedAGender() {
         registrationPage.setFirstName("John");
         registrationPage.setLastName("Doe");
@@ -59,25 +59,25 @@ public class RegistrationSteps {
         registrationPage.setGender("Male");
     }
 
-    @And("User enters a username {string} on the registration page")
+    @And("user enters a username {string} on the registration page")
     public void userEntersAUsernameOnTheRegistrationPage(String username) {
         registrationPage.clearUsername();
         registrationPage.setUsername(username);
     }
 
-    @And("User enters a password {string} on the registration page")
+    @And("user enters a password {string} on the registration page")
     public void userEntersAPasswordOnTheRegistrationPage(String password) {
         registrationPage.clearPassword();
         registrationPage.setPassword(password);
     }
 
-    @And("User enters a confirm password {string} on the registration page")
+    @And("user enters a confirm password {string} on the registration page")
     public void userEntersAConfirmPasswordOnTheRegistrationPage(String password) {
         registrationPage.clearConfirmPassword();
         registrationPage.setConfirmPassword(password);
     }
 
-    @Then("Registration is successful and user is redirected to login page")
+    @Then("registration is successful and user is redirected to login page")
     public void registrationIsSuccessfulAndUserIsRedirectedToLoginPage() {
         WebElement loginElement = loginPage.getLoginElement();
 

@@ -21,42 +21,42 @@ public class LoginSteps {
         this.homePage = new HomePage(driver);
     }
 
-    @Given("User is on the login page")
+    @Given("user is on the login page")
     public void userIsOnTheLoginPage() {
         loginPage.navigateTo("https://bookcart.azurewebsites.net/login");
     }
 
-    @When("User enters a username {string} on the login page")
+    @When("user enters a username {string} on the login page")
     public void userEntersAUsernameOnTheLoginPage(String username) {
         loginPage.setUsername(username);
     }
 
-    @And("User enters a password {string} on the login page")
+    @And("user enters a password {string} on the login page")
     public void userEntersAPasswordOnTheLoginPage(String password) {
         loginPage.setPassword(password);
     }
 
-    @And("User clicks the login button")
+    @And("user clicks the login button")
     public void userClicksTheLoginButton() {
         loginPage.clickLogin();
     }
 
-    @Then("Username field displays the error message {string} on the login page")
+    @Then("username field displays the error message {string} on the login page")
     public void usernameFieldDisplaysTheErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getUsernameFieldErrorMessage());
     }
 
-    @And("Password field displays the error message {string} on the login page")
+    @And("password field displays the error message {string} on the login page")
     public void passwordFieldDisplaysTheErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getPasswordFieldErrorMessage());
     }
 
-    @Then("User should see an error message {string} on the login page")
+    @Then("user should see an error message {string} on the login page")
     public void userShouldSeeAnErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getErrorMessage());
     }
 
-    @Then("Login is successful and user is redirected to home page")
+    @Then("login is successful and user is redirected to home page")
     public void loginIsSuccessfulAndUserIsRedirectedToHomePage() {
         Assertions.assertTrue(homePage.getHomeElement().isDisplayed());
     }
