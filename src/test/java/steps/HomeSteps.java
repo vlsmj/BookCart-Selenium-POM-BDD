@@ -43,11 +43,13 @@ public class HomeSteps {
         homePage.slidePriceTo(price);
     }
 
-    @And("the lowest priced book is {int}")
-    public void theLowestPricedBookIs(int price) {
+    @And("the lowest priced book is not less than {int}")
+    public void theLowestPricedBookIsNotLessThan(int price) {
+        Assertions.assertFalse(homePage.getLowestPricedBook() < price);
     }
 
-    @And("the maximum priced book is less than or equal to {int}")
-    public void theMaximumPricedBookIsLessThanOrEqualTo(int price) {
+    @And("the maximum priced book is not greater than {int}")
+    public void theMaximumPricedBookIsNotGreaterThan(int price) {
+        Assertions.assertFalse(homePage.getHighestPricedBook() > price);
     }
 }

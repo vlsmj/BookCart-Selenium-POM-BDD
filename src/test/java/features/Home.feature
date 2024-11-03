@@ -1,4 +1,4 @@
-Feature: Product Price and Product Details
+Feature: Home Product List and Price Filter
 
   Background:
     Given user is on the Home page
@@ -14,5 +14,5 @@ Feature: Product Price and Product Details
   Scenario: Using the price filter
     When user sets the maximum price to 611
     Then there is a list of books displayed
-    And the lowest priced book is 111
-    And the maximum priced book is less than or equal to 611
+    And the lowest priced book is not less than 111
+    And the maximum priced book is not greater than 611

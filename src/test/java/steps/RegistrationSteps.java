@@ -53,7 +53,7 @@ public class RegistrationSteps {
     public void userEnterValidInputsAndSelectedAGender() {
         registrationPage.setFirstName("John");
         registrationPage.setLastName("Doe");
-        registrationPage.setUsername("johndoe2015");
+        registrationPage.setUsername("johndoe2016");
         registrationPage.setPassword("Password1");
         registrationPage.setConfirmPassword("Password1");
         registrationPage.setGender("Male");

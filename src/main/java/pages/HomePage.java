@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +18,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//app-home")
     WebElement appHome;
 
-    @FindBy(css = ".p-1.ng-star-inserted")
+    @FindBy(xpath = "//div[contains(@class, 'card-deck-container')]//mat-card")
     List<WebElement> listOfBooks;
 
     @FindBy(xpath = "//mat-nav-list/mat-list-item")
@@ -36,6 +38,25 @@ public class HomePage extends BasePage {
 
     public List<WebElement> getBooks() {
         return listOfBooks;
+    }
+
+    public double getLowestPricedBook() {
+        return getPrices().getFirst();
+    }
+
+    public double getHighestPricedBook() {
+        return getPrices().getLast();
+    }
+
+    private List<Double> getPrices() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement book : listOfBooks) {
+            String rawPrice = book.findElement(By.xpath("mat-card-content/p")).getText();
+            double price = Double.parseDouble(rawPrice.replace("₹", ""));
+            prices.add(price);
+        }
+        Collections.sort(prices);
+        return prices;
     }
 
     public List<WebElement> getCategories() {
