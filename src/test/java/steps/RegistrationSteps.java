@@ -2,7 +2,6 @@ package steps;
 
 import hooks.DriverHooks;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.RegistrationPage;
 
+import static utils.StringUtils.generateUsername;
 import static utils.WaitUtils.retryClickUntilVisible;
 
 public class RegistrationSteps {
@@ -23,11 +23,6 @@ public class RegistrationSteps {
 
         registrationPage = new RegistrationPage(driver);
         loginPage = new LoginPage(driver);
-    }
-
-    @Given("user is on the registration page")
-    public void userIsOnTheRegistrationPage() {
-        registrationPage.navigateTo("https://bookcart.azurewebsites.net/register");
     }
 
     @When("user leaves empty inputs and no selected gender")
@@ -53,16 +48,32 @@ public class RegistrationSteps {
     public void userEnterValidInputsAndSelectedAGender() {
         registrationPage.setFirstName("John");
         registrationPage.setLastName("Doe");
-        registrationPage.setUsername("johndoe2016");
+        registrationPage.setUsername(generateUsername());
         registrationPage.setPassword("Password1");
         registrationPage.setConfirmPassword("Password1");
         registrationPage.setGender("Male");
     }
 
+    @When("user enters a first name {string} on the registration page")
+    public void userEntersAFirstNameOnTheRegistrationPage(String firstName) {
+        registrationPage.setFirstName(firstName);
+    }
+
+    @When("user enters a last name {string} on the registration page")
+    public void userEntersALastNameOnTheRegistrationPage(String lastName) {
+        registrationPage.setLastName(lastName);
+    }
+
     @And("user enters a username {string} on the registration page")
     public void userEntersAUsernameOnTheRegistrationPage(String username) {
+        WebElement usernameFieldElement = registrationPage.getUsernameField();
+        WebElement usernameFieldErrorElement = registrationPage.getUsernameFieldError();
+
         registrationPage.clearUsername();
         registrationPage.setUsername(username);
+
+        // Wait for input field error message to show, click input field to not idle.
+        retryClickUntilVisible(driver, usernameFieldElement, usernameFieldErrorElement);
     }
 
     @And("user enters a password {string} on the registration page")
@@ -75,6 +86,11 @@ public class RegistrationSteps {
     public void userEntersAConfirmPasswordOnTheRegistrationPage(String password) {
         registrationPage.clearConfirmPassword();
         registrationPage.setConfirmPassword(password);
+    }
+
+    @And("user sets the gender to {string} on the registration page")
+    public void userSetsTheGenderToOnTheRegistrationPage(String gender) {
+        registrationPage.setGender(gender);
     }
 
     @Then("registration is successful and user is redirected to login page")

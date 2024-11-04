@@ -14,18 +14,22 @@ public class HomeSteps {
 
     public HomeSteps(DriverHooks driverHooks) {
         WebDriver driver = driverHooks.getDriver();
-
-        homePage = new HomePage(driver);
-    }
-
-    @Given("user is on the Home page")
-    public void userIsOnTheHomePage() {
-        homePage.navigateTo("https://bookcart.azurewebsites.net/");
+        this.homePage = new HomePage(driver);
     }
 
     @Then("there is a list of books displayed")
     public void thereIsAListOfBooksDisplayed() {
         Assertions.assertFalse(homePage.getBooks().isEmpty());
+    }
+
+    @Then("there is a list of books displayed with the title {string}")
+    public void thereIsAListOfBooksDisplayedWithTheTitle(String title) {
+        Assertions.assertTrue(homePage.verifyBooksWithTitle(title));
+    }
+
+    @Then("there is a list of books displayed that contains {string} in the title")
+    public void thereIsAListOfBooksDisplayedThatContainsInTheTitle(String keyword) {
+        Assertions.assertTrue(homePage.verifyBooksWithTitle(keyword));
     }
 
     @Given("there is a list of categories in the sidebar")
@@ -51,5 +55,10 @@ public class HomeSteps {
     @And("the maximum priced book is not greater than {int}")
     public void theMaximumPricedBookIsNotGreaterThan(int price) {
         Assertions.assertFalse(homePage.getHighestPricedBook() > price);
+    }
+
+    @When("user clicks the first book in the list")
+    public void userClicksTheFirstBookInTheList() {
+        homePage.clickFirstBook();
     }
 }

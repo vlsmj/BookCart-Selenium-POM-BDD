@@ -1,6 +1,5 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class HomePage extends BasePage {
+public class HomePage {
 
     @FindBy(xpath = "//app-home")
     WebElement appHome;
@@ -28,7 +27,6 @@ public class HomePage extends BasePage {
     WebElement priceSlider;
 
     public HomePage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -38,6 +36,16 @@ public class HomePage extends BasePage {
 
     public List<WebElement> getBooks() {
         return listOfBooks;
+    }
+
+    public boolean verifyBooksWithTitle(String keyword) {
+        for (WebElement book : getBooks()) {
+            String title = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
+            if (!title.contains(keyword.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public double getLowestPricedBook() {
@@ -50,12 +58,13 @@ public class HomePage extends BasePage {
 
     private List<Double> getPrices() {
         List<Double> prices = new ArrayList<>();
-        for (WebElement book : listOfBooks) {
+        for (WebElement book : getBooks()) {
             String rawPrice = book.findElement(By.xpath("mat-card-content/p")).getText();
             double price = Double.parseDouble(rawPrice.replace("₹", ""));
             prices.add(price);
         }
         Collections.sort(prices);
+        System.out.println(prices);
         return prices;
     }
 
@@ -64,7 +73,7 @@ public class HomePage extends BasePage {
     }
 
     public void clickCategory(String categoryName) {
-        for (WebElement category : listOfCategories) {
+        for (WebElement category : getCategories()) {
             String name = category.findElement(By.xpath("span")).getText();
 
             if (categoryName.equals(name)) {
@@ -72,6 +81,10 @@ public class HomePage extends BasePage {
                 break;
             }
         }
+    }
+
+    public void clickFirstBook() {
+        getBooks().getFirst().click();
     }
 
     public void slidePriceTo(int price) {

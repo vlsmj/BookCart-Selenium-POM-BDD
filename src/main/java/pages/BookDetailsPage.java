@@ -1,33 +1,27 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BookDetailsPage extends BasePage {
+public class BookDetailsPage {
 
     @FindBy(xpath = "//app-book-details")
     WebElement appBookDetails;
 
-    @FindBy()
-    WebElement bookDetailsTitle;
-
-    @FindBy()
-    WebElement title;
-
-    @FindBy()
+    @FindBy(xpath = "//mat-card-content//table/tbody/tr[2]/td[2]")
     WebElement author;
 
-    @FindBy()
-    WebElement category;
-
-    @FindBy()
-    WebElement price;
-
     public BookDetailsPage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
+    }
+
+    public WebElement getBookDetailsElement() {
+        return appBookDetails;
+    }
+
+    public String getAuthorName() {
+        return author.getText();
     }
 }

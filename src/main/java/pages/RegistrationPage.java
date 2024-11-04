@@ -1,12 +1,11 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class RegistrationPage extends BasePage {
+public class RegistrationPage {
 
     @FindBy(css = "input[formcontrolname='firstname']")
     WebElement inputFirstName;
@@ -48,7 +47,6 @@ public class RegistrationPage extends BasePage {
     WebElement buttonRegister;
 
     public RegistrationPage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -70,6 +68,14 @@ public class RegistrationPage extends BasePage {
 
     public void setConfirmPassword(String password) {
         inputConfirmPassword.sendKeys(password);
+    }
+
+    public WebElement getUsernameField() {
+        return inputUsername;
+    }
+
+    public WebElement getUsernameFieldError() {
+        return usernameFieldError;
     }
 
     public void clearUsername() {

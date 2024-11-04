@@ -1,7 +1,7 @@
 Feature: Home Product List and Price Filter
 
   Background:
-    Given user is on the Home page
+    Given user navigated to the "home" page
 
   Scenario: Viewing the list of books
     Then there is a list of books displayed

@@ -2,7 +2,6 @@ package steps;
 
 import hooks.DriverHooks;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
@@ -19,11 +18,6 @@ public class LoginSteps {
 
         this.loginPage = new LoginPage(driver);
         this.homePage = new HomePage(driver);
-    }
-
-    @Given("user is on the login page")
-    public void userIsOnTheLoginPage() {
-        loginPage.navigateTo("https://bookcart.azurewebsites.net/login");
     }
 
     @When("user enters a username {string} on the login page")

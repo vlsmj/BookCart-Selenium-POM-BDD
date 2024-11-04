@@ -1,7 +1,7 @@
 Feature: User Registration
 
   Background:
-    Given user is on the registration page
+    Given user navigated to the "registration" page
 
   Scenario Outline: Registration attempt with empty fields and no selected gender
     When user leaves empty inputs and no selected gender
