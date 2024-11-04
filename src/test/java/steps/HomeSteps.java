@@ -37,13 +37,13 @@ public class HomeSteps {
         Assertions.assertFalse(homePage.getCategories().isEmpty());
     }
 
-    @When("user clicks the {string} category in the sidebar")
-    public void userClicksTheCategoryInTheSidebar(String categoryName) {
+    @When("the user clicks the {string} category in the sidebar")
+    public void theUserClicksTheCategoryInTheSidebar(String categoryName) {
         homePage.clickCategory(categoryName);
     }
 
-    @When("user sets the maximum price to {int}")
-    public void userSetsTheMaximumPriceTo(int price) {
+    @When("the user sets the maximum price to {int}")
+    public void theUserSetsTheMaximumPriceTo(int price) {
         homePage.slidePriceTo(price);
     }
 
@@ -57,8 +57,8 @@ public class HomeSteps {
         Assertions.assertFalse(homePage.getHighestPricedBook() > price);
     }
 
-    @When("user clicks the first book in the list")
-    public void userClicksTheFirstBookInTheList() {
+    @When("the user clicks the first book in the list")
+    public void theUserClicksTheFirstBookInTheList() {
         homePage.clickFirstBook();
     }
 }

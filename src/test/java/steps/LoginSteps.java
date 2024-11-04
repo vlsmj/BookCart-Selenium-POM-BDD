@@ -20,18 +20,18 @@ public class LoginSteps {
         this.homePage = new HomePage(driver);
     }
 
-    @When("user enters a username {string} on the login page")
-    public void userEntersAUsernameOnTheLoginPage(String username) {
+    @When("the user enters a username {string} on the login page")
+    public void theUserEntersAUsernameOnTheLoginPage(String username) {
         loginPage.setUsername(username);
     }
 
-    @And("user enters a password {string} on the login page")
-    public void userEntersAPasswordOnTheLoginPage(String password) {
+    @And("the user enters a password {string} on the login page")
+    public void theUserEntersAPasswordOnTheLoginPage(String password) {
         loginPage.setPassword(password);
     }
 
-    @And("user clicks the login button")
-    public void userClicksTheLoginButton() {
+    @And("the user clicks the login button")
+    public void theUserClicksTheLoginButton() {
         loginPage.clickLogin();
     }
 
@@ -45,8 +45,8 @@ public class LoginSteps {
         Assertions.assertEquals(errorMessage, loginPage.getPasswordFieldErrorMessage());
     }
 
-    @Then("user should see an error message {string} on the login page")
-    public void userShouldSeeAnErrorMessageOnTheLoginPage(String errorMessage) {
+    @Then("the user should see an error message {string} on the login page")
+    public void theUserShouldSeeAnErrorMessageOnTheLoginPage(String errorMessage) {
         Assertions.assertEquals(errorMessage, loginPage.getErrorMessage());
     }
 

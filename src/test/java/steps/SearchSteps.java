@@ -15,13 +15,13 @@ public class SearchSteps {
         searchBarComponent = new SearchBarComponent(driver);
     }
 
-    @When("user enters {string} in the search bar")
-    public void userEntersInTheSearchBar(String keyword) {
+    @When("the user enters {string} in the search bar")
+    public void theUerEntersInTheSearchBar(String keyword) {
         searchBarComponent.setKeyword(keyword);
     }
 
-    @And("user pressed enter in the search bar")
-    public void userPressedEnterInTheSearchBar() {
+    @And("the user pressed enter in the search bar")
+    public void theUserPressedEnterInTheSearchBar() {
         searchBarComponent.enter();
     }
 }

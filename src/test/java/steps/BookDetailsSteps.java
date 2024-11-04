@@ -16,8 +16,8 @@ public class BookDetailsSteps {
         bookDetailsPage = new BookDetailsPage(driver);
     }
 
-    @Then("user is redirected to the book details page")
-    public void userIsRedirectedToTheBookDetailsPage() {
+    @Then("the user is redirected to the book details page")
+    public void theUserIsRedirectedToTheBookDetailsPage() {
         Assertions.assertTrue(bookDetailsPage.getBookDetailsElement().isDisplayed());
     }
 

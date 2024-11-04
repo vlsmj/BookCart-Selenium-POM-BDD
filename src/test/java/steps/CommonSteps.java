@@ -14,8 +14,8 @@ public class CommonSteps {
         commonActions = new CommonActions(driver);
     }
 
-    @Given("user navigated to the {string} page")
-    public void userNavigatedToThePage(String page) {
+    @Given("the user navigated to the {string} page")
+    public void theUserNavigatedToThePage(String page) {
         commonActions.navigateTo(page);
     }
 }

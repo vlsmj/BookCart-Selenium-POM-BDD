@@ -25,8 +25,8 @@ public class RegistrationSteps {
         loginPage = new LoginPage(driver);
     }
 
-    @When("user leaves empty inputs and no selected gender")
-    public void userLeavesEmptyInputsAndNoSelectedGender() {
+    @When("the user leaves empty inputs and no selected gender")
+    public void theUserLeavesEmptyInputsAndNoSelectedGender() {
         registrationPage.setFirstName("");
         registrationPage.setLastName("");
         registrationPage.setUsername("");
@@ -34,8 +34,8 @@ public class RegistrationSteps {
         registrationPage.setConfirmPassword("");
     }
 
-    @And("user clicks the register button")
-    public void userClicksTheRegisterButton() {
+    @And("the user clicks the register button")
+    public void theUserClicksTheRegisterButton() {
         registrationPage.clickRegister();
     }
 
@@ -44,8 +44,8 @@ public class RegistrationSteps {
         Assertions.assertEquals(errorMessage, registrationPage.getInputFieldErrorMessage(inputField));
     }
 
-    @When("user enter valid inputs and selected a gender")
-    public void userEnterValidInputsAndSelectedAGender() {
+    @When("the user enter valid inputs and selected a gender")
+    public void theUserEnterValidInputsAndSelectedAGender() {
         registrationPage.setFirstName("John");
         registrationPage.setLastName("Doe");
         registrationPage.setUsername(generateUsername());
@@ -54,18 +54,18 @@ public class RegistrationSteps {
         registrationPage.setGender("Male");
     }
 
-    @When("user enters a first name {string} on the registration page")
-    public void userEntersAFirstNameOnTheRegistrationPage(String firstName) {
+    @When("the user enters a first name {string} on the registration page")
+    public void theUserEntersAFirstNameOnTheRegistrationPage(String firstName) {
         registrationPage.setFirstName(firstName);
     }
 
-    @When("user enters a last name {string} on the registration page")
-    public void userEntersALastNameOnTheRegistrationPage(String lastName) {
+    @When("the user enters a last name {string} on the registration page")
+    public void theUserEntersALastNameOnTheRegistrationPage(String lastName) {
         registrationPage.setLastName(lastName);
     }
 
-    @And("user enters a username {string} on the registration page")
-    public void userEntersAUsernameOnTheRegistrationPage(String username) {
+    @And("the user enters a username {string} on the registration page")
+    public void theUserEntersAUsernameOnTheRegistrationPage(String username) {
         WebElement usernameFieldElement = registrationPage.getUsernameField();
         WebElement usernameFieldErrorElement = registrationPage.getUsernameFieldError();
 
@@ -76,20 +76,20 @@ public class RegistrationSteps {
         retryClickUntilVisible(driver, usernameFieldElement, usernameFieldErrorElement);
     }
 
-    @And("user enters a password {string} on the registration page")
-    public void userEntersAPasswordOnTheRegistrationPage(String password) {
+    @And("the user enters a password {string} on the registration page")
+    public void theUserEntersAPasswordOnTheRegistrationPage(String password) {
         registrationPage.clearPassword();
         registrationPage.setPassword(password);
     }
 
-    @And("user enters a confirm password {string} on the registration page")
-    public void userEntersAConfirmPasswordOnTheRegistrationPage(String password) {
+    @And("the user enters a confirm password {string} on the registration page")
+    public void theUserEntersAConfirmPasswordOnTheRegistrationPage(String password) {
         registrationPage.clearConfirmPassword();
         registrationPage.setConfirmPassword(password);
     }
 
-    @And("user sets the gender to {string} on the registration page")
-    public void userSetsTheGenderToOnTheRegistrationPage(String gender) {
+    @And("the user sets the gender to {string} on the registration page")
+    public void theUserSetsTheGenderToOnTheRegistrationPage(String gender) {
         registrationPage.setGender(gender);
     }
 
