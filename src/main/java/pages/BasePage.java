@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -9,12 +9,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class WaitUtils {
+public class BasePage {
+    protected WebDriver driver;
 
-    public static void retryClickUntilVisible(WebDriver driver, WebElement clickElement, WebElement visibleElement) {
-        int retryCount = 0;
+    private final long maxTimeout = 5000;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void retryClickUntilVisible(WebElement clickElement, WebElement visibleElement) {
         int maxRetryCount = 3;
-        long maxTimeout = 3000;
+        int retryCount = 0;
 
         while (retryCount < maxRetryCount) {
             try {
@@ -29,5 +35,17 @@ public class WaitUtils {
                 System.out.println("Attempt " + retryCount + " failed: " + exception.getMessage() + ". Retrying...");
             }
         }
+    }
+
+    public void waitClickable(WebElement clickElement) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(clickElement));
+
+        clickElement.click();
+    }
+
+    public void waitTextToBe(WebElement webElement, String text) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
+        webDriverWait.until(_ -> webElement.getText().equals(text));
     }
 }

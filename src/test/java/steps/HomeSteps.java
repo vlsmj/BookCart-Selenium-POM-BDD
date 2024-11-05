@@ -49,12 +49,12 @@ public class HomeSteps {
 
     @And("the lowest priced book is not less than {int}")
     public void theLowestPricedBookIsNotLessThan(int price) {
-        Assertions.assertFalse(homePage.getLowestPricedBook() < price);
+        Assertions.assertFalse(homePage.getLowestBookPrice() < price);
     }
 
     @And("the maximum priced book is not greater than {int}")
     public void theMaximumPricedBookIsNotGreaterThan(int price) {
-        Assertions.assertFalse(homePage.getHighestPricedBook() > price);
+        Assertions.assertFalse(homePage.getHighestBookPrice() > price);
     }
 
     @When("the user clicks the first book in the list")

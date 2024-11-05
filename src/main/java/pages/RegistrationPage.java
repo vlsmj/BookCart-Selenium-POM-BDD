@@ -5,8 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class RegistrationPage {
-
+public class RegistrationPage extends BasePage {
     @FindBy(css = "input[formcontrolname='firstname']")
     WebElement inputFirstName;
 
@@ -47,6 +46,7 @@ public class RegistrationPage {
     WebElement buttonRegister;
 
     public RegistrationPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -62,20 +62,19 @@ public class RegistrationPage {
         inputUsername.sendKeys(username);
     }
 
+    public void setUsernameExpectingError(String username) {
+        inputUsername.sendKeys(username);
+
+        // Wait for input field error message to show, click input field to not idle.
+        retryClickUntilVisible(inputUsername, usernameFieldError);
+    }
+
     public void setPassword(String password) {
         inputPassword.sendKeys(password);
     }
 
     public void setConfirmPassword(String password) {
         inputConfirmPassword.sendKeys(password);
-    }
-
-    public WebElement getUsernameField() {
-        return inputUsername;
-    }
-
-    public WebElement getUsernameFieldError() {
-        return usernameFieldError;
     }
 
     public void clearUsername() {
@@ -98,12 +97,12 @@ public class RegistrationPage {
         }
     }
 
-    public WebElement getRegisterButton() {
-        return buttonRegister;
-    }
-
     public void clickRegister() {
         buttonRegister.click();
+    }
+
+    public void clickRegisterExpectingLoginElement(WebElement loginElement) {
+        retryClickUntilVisible(buttonRegister, loginElement);
     }
 
     public String getInputFieldErrorMessage(String inputField) {

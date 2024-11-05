@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//app-login")
     WebElement appLogin;
@@ -29,6 +29,7 @@ public class LoginPage {
     WebElement error;
 
     public LoginPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

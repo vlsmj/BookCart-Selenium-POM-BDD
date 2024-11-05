@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
     @FindBy(xpath = "//app-home")
     WebElement appHome;
@@ -27,6 +28,7 @@ public class HomePage {
     WebElement priceSlider;
 
     public HomePage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -40,31 +42,46 @@ public class HomePage {
 
     public boolean verifyBooksWithTitle(String keyword) {
         for (WebElement book : getBooks()) {
-            String title = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
-            if (!title.contains(keyword.toLowerCase())) {
+            String bookTitle = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
+            if (!bookTitle.contains(keyword.toLowerCase())) {
                 return false;
             }
         }
         return true;
     }
 
-    public double getLowestPricedBook() {
+    public void addToCartBookByTitle(String title) {
+        for (WebElement book : getBooks()) {
+            String bookTitle = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
+            if (title.toLowerCase().equals(bookTitle)) {
+                WebElement buttonAddToCart = book.findElement(By.xpath(".//app-addtocart/button"));
+
+                new Actions(driver)
+                        .moveToElement(buttonAddToCart)
+                        .perform();
+
+                waitClickable(buttonAddToCart);
+                return;
+            }
+        }
+    }
+
+    public double getLowestBookPrice() {
         return getPrices().getFirst();
     }
 
-    public double getHighestPricedBook() {
+    public double getHighestBookPrice() {
         return getPrices().getLast();
     }
 
     private List<Double> getPrices() {
         List<Double> prices = new ArrayList<>();
         for (WebElement book : getBooks()) {
-            String rawPrice = book.findElement(By.xpath("mat-card-content/p")).getText();
+            String rawPrice = book.findElement(By.xpath(".//mat-card-content/p")).getText();
             double price = Double.parseDouble(rawPrice.replace("₹", ""));
             prices.add(price);
         }
         Collections.sort(prices);
-        System.out.println(prices);
         return prices;
     }
 
@@ -74,7 +91,7 @@ public class HomePage {
 
     public void clickCategory(String categoryName) {
         for (WebElement category : getCategories()) {
-            String name = category.findElement(By.xpath("span")).getText();
+            String name = category.findElement(By.xpath(".//span")).getText();
 
             if (categoryName.equals(name)) {
                 category.click();

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BookDetailsPage {
+public class BookDetailsPage extends BasePage {
 
     @FindBy(xpath = "//app-book-details")
     WebElement appBookDetails;
@@ -14,6 +14,7 @@ public class BookDetailsPage {
     WebElement author;
 
     public BookDetailsPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

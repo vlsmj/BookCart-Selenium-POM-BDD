@@ -11,7 +11,6 @@ import pages.LoginPage;
 import pages.RegistrationPage;
 
 import static utils.StringUtils.generateUsername;
-import static utils.WaitUtils.retryClickUntilVisible;
 
 public class RegistrationSteps {
     private final WebDriver driver;
@@ -66,14 +65,8 @@ public class RegistrationSteps {
 
     @And("the user enters a username {string} on the registration page")
     public void theUserEntersAUsernameOnTheRegistrationPage(String username) {
-        WebElement usernameFieldElement = registrationPage.getUsernameField();
-        WebElement usernameFieldErrorElement = registrationPage.getUsernameFieldError();
-
         registrationPage.clearUsername();
-        registrationPage.setUsername(username);
-
-        // Wait for input field error message to show, click input field to not idle.
-        retryClickUntilVisible(driver, usernameFieldElement, usernameFieldErrorElement);
+        registrationPage.setUsernameExpectingError(username);
     }
 
     @And("the user enters a password {string} on the registration page")
@@ -96,8 +89,7 @@ public class RegistrationSteps {
     @Then("registration is successful and user is redirected to login page")
     public void registrationIsSuccessfulAndUserIsRedirectedToLoginPage() {
         WebElement loginElement = loginPage.getLoginElement();
-
-        retryClickUntilVisible(driver, registrationPage.getRegisterButton(), loginElement);
+        registrationPage.clickRegisterExpectingLoginElement(loginElement);
         Assertions.assertTrue(loginElement.isDisplayed());
     }
 }
