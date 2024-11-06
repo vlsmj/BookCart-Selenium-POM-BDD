@@ -36,21 +36,6 @@ Feature: Shopping Cart Functionalities
     Then a message box is shown with a message "One Item removed from cart"
     And the quantity of the book "Slayer" updates to 1
 
-  Scenario: Verifying if the cart total displays the correct price
-    When the user clicks add to cart button for the book titled "Slayer" in the list of books
-    Then a message box is shown with a message "One Item added to cart"
-    And the user clicks add to cart button for the book titled "Roomies" in the list of books
-    Then a message box is shown with a message "One Item added to cart"
-    And the user clicks the shopping cart icon
-    Then the user is redirected to the shopping cart page
-    And the book "Slayer" is listed in the shopping cart
-    And the book "Roomies" is listed in the shopping cart
-    When the user increases the quantity of the book "Roomies" by 1
-    Then a message box is shown with a message "One Item added to cart"
-    And the quantity of the book "Roomies" updates to 2
-    And the price for the book "Roomies" amounts to 668.00
-    And the cart total price amounts to 1902.00
-
   Scenario: Removing a book from the shopping cart list
     When the user clicks add to cart button for the book titled "Slayer" in the list of books
     Then a message box is shown with a message "One Item added to cart"
@@ -72,3 +57,18 @@ Feature: Shopping Cart Functionalities
     Then a message box is shown with a message "Cart cleared!!!"
     And all books in the shopping cart are removed
     And the shopping cart icon displays a count of 0
+
+  Scenario: Verifying if the cart total displays the correct price
+    When the user clicks add to cart button for the book titled "Slayer" in the list of books
+    Then a message box is shown with a message "One Item added to cart"
+    And the user clicks add to cart button for the book titled "Roomies" in the list of books
+    Then a message box is shown with a message "One Item added to cart"
+    And the user clicks the shopping cart icon
+    Then the user is redirected to the shopping cart page
+    And the book "Slayer" is listed in the shopping cart
+    And the book "Roomies" is listed in the shopping cart
+    When the user increases the quantity of the book "Roomies" by 1
+    Then a message box is shown with a message "One Item added to cart"
+    And the quantity of the book "Roomies" updates to 2
+    And the price for the book "Roomies" amounts to 668.00
+    And the cart total price amounts to 1902.00
