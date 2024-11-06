@@ -24,8 +24,8 @@ public class ShoppingCartSteps {
     }
 
     @And("the shopping cart icon displays a count of {int}")
-    public void theShoppingCartIconDisplaysACountOf(int count) {
-        Assertions.assertEquals(count, headerComponent.getCartCount(count));
+    public void theShoppingCartIconDisplaysACountOf(int expectedCount) {
+        Assertions.assertEquals(expectedCount, headerComponent.getCartCount(expectedCount));
     }
 
     @When("the user clicks add to cart button for the book titled {string} in the list of books")
@@ -59,8 +59,8 @@ public class ShoppingCartSteps {
     }
 
     @Then("the quantity of the book {string} updates to {int}")
-    public void theQuantityOfTheBookUpdatesTo(String title, int quantity) {
-        Assertions.assertEquals(quantity, shoppingCartPage.getQuantity(title));
+    public void theQuantityOfTheBookUpdatesTo(String title, int expectedQuantity) {
+        Assertions.assertEquals(expectedQuantity, shoppingCartPage.getQuantity(title, expectedQuantity));
     }
 
     @And("the price for the book {string} amounts to {double}")
@@ -80,7 +80,7 @@ public class ShoppingCartSteps {
 
     @Then("the book {string} is removed from the list of books")
     public void theBookIsRemovedFromTheListOfBooks(String title) {
-        Assertions.assertFalse(shoppingCartPage.getBookByTitle(title).isDisplayed());
+        Assertions.assertNull(shoppingCartPage.getBookByTitle(title));
     }
 
     @When("the user clicks the clear cart button")

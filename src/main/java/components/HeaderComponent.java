@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.BasePage;
+import base.BasePage;
 
 public class HeaderComponent extends BasePage {
 
@@ -31,8 +31,8 @@ public class HeaderComponent extends BasePage {
         searchBar.sendKeys(Keys.ENTER);
     }
 
-    public int getCartCount(int count) {
-        waitTextToBe(cartCount, String.valueOf(count));
+    public int getCartCount(int expectedCount) {
+        waitTextToBe(cartCount, String.valueOf(expectedCount));
         return Integer.parseInt(cartCount.getText());
     }
 

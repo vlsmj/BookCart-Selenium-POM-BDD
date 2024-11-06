@@ -1,5 +1,6 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static utils.NumberUtils.convertPriceToDouble;
 
 public class HomePage extends BasePage {
 
@@ -78,7 +81,7 @@ public class HomePage extends BasePage {
         List<Double> prices = new ArrayList<>();
         for (WebElement book : getBooks()) {
             String rawPrice = book.findElement(By.xpath(".//mat-card-content/p")).getText();
-            double price = Double.parseDouble(rawPrice.replace("₹", ""));
+            double price = convertPriceToDouble(rawPrice);
             prices.add(price);
         }
         Collections.sort(prices);

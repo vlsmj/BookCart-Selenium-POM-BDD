@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.RegistrationPage;
 
-import static utils.StringUtils.generateUsername;
+import static utils.TestDataGenerator.generateUsername;
 
 public class RegistrationSteps {
     private final WebDriver driver;

@@ -1,5 +1,6 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static utils.NumberUtils.convertPriceToDouble;
 
 public class ShoppingCartPage extends BasePage {
 
@@ -19,7 +22,7 @@ public class ShoppingCartPage extends BasePage {
     @FindBy(xpath = "//mat-card-content[2]/td[5]")
     WebElement cartTotal;
 
-    @FindBy(xpath = "//button[span(text()='Clear cart')]")
+    @FindBy(xpath = "//button[normalize-space()='Clear cart']")
     WebElement buttonClearCart;
 
     public ShoppingCartPage(WebDriver driver) {
@@ -36,7 +39,7 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public WebElement getBookByTitle(String title) {
-        for (WebElement book : listOfBooksCart) {
+        for (WebElement book : getBooksInCart()) {
             String bookTitle = book.findElement(By.cssSelector(".mat-column-title")).getText().toLowerCase();
             if (title.toLowerCase().equals(bookTitle)) {
                 return book;
@@ -46,37 +49,36 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public void increaseQuantity(String title, int step) {
-        WebElement buttonIncrement = getBookByTitle(title).findElement(By.xpath("//td[contains(@class, 'mat-column-quantity')]//button[2]"));
+        WebElement buttonIncrement = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-quantity')]/div/div[3]/button"));
         for (int i = 0; i < step; i++) {
-            buttonIncrement.click();
             waitClickable(buttonIncrement);
         }
     }
 
     public void decreaseQuantity(String title, int step) {
-        WebElement buttonDecrement = getBookByTitle(title).findElement(By.xpath("//td[contains(@class, 'mat-column-quantity')]//button[1]"));
+        WebElement buttonDecrement = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-quantity')]/div/div[1]/button"));
         for (int i = 0; i < step; i++) {
-            buttonDecrement.click();
             waitClickable(buttonDecrement);
         }
     }
 
-    public int getQuantity(String title) {
-        WebElement quantity = getBookByTitle(title).findElement(By.xpath("//td[contains(@class, 'mat-column-quantity')]/div/div[2]"));
+    public int getQuantity(String title, int expectedQuantity) {
+        WebElement quantity = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-quantity')]/div/div[2]"));
+        waitTextToBe(quantity, String.valueOf(expectedQuantity));
         return Integer.parseInt(quantity.getText());
     }
 
     public double getPrice(String title) {
-        WebElement quantity = getBookByTitle(title).findElement(By.xpath("//td[contains(@class, 'mat-column-total')]"));
-        return Double.parseDouble(quantity.getText().replace("₹", ""));
+        WebElement quantity = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-total')]"));
+        return convertPriceToDouble(quantity.getText());
     }
 
     public double getCartTotalPrice() {
-        return Double.parseDouble(cartTotal.getText());
+        return convertPriceToDouble(cartTotal.getText());
     }
 
     public void removeBook(String title) {
-        WebElement deleteIcon = getBookByTitle(title).findElement(By.xpath("//td[contains(@class, 'mat-column-action')]/button"));
+        WebElement deleteIcon = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-action')]/button"));
         deleteIcon.click();
     }
 

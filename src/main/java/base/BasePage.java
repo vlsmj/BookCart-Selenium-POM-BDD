@@ -1,4 +1,4 @@
-package pages;
+package base;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -11,11 +11,12 @@ import java.time.Duration;
 
 public class BasePage {
     protected WebDriver driver;
-
-    private final long maxTimeout = 5000;
+    private final WebDriverWait webDriverWait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        long maxTimeout = 5000;
+        this.webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
     }
 
     public void retryClickUntilVisible(WebElement clickElement, WebElement visibleElement) {
@@ -28,7 +29,6 @@ public class BasePage {
 
                 clickElement.click();
 
-                WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
                 webDriverWait.until(ExpectedConditions.visibilityOf(visibleElement));
                 return;
             } catch (NoSuchElementException | TimeoutException exception) {
@@ -38,14 +38,19 @@ public class BasePage {
     }
 
     public void waitClickable(WebElement clickElement) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
         webDriverWait.until(ExpectedConditions.elementToBeClickable(clickElement));
-
         clickElement.click();
     }
 
+    public void waitVisibility(WebElement webElement) {
+        webDriverWait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
+    public void waitInvisibility(WebElement webElement) {
+        webDriverWait.until(ExpectedConditions.invisibilityOf(webElement));
+    }
+
     public void waitTextToBe(WebElement webElement, String text) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofMillis(maxTimeout));
         webDriverWait.until(_ -> webElement.getText().equals(text));
     }
 }
