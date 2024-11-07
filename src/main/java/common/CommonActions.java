@@ -28,6 +28,7 @@ public class CommonActions extends BasePage {
         pages.put("home", "https://bookcart.azurewebsites.net/");
         pages.put("login", "https://bookcart.azurewebsites.net/login");
         pages.put("registration", "https://bookcart.azurewebsites.net/register");
+        pages.put("wishlist", "https://bookcart.azurewebsites.net/wishlist");
     }
 
     public void navigateTo(String page) {

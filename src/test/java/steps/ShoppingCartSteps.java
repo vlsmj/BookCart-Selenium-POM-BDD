@@ -78,8 +78,8 @@ public class ShoppingCartSteps {
         shoppingCartPage.removeBook(title);
     }
 
-    @Then("the book {string} is removed from the list of books")
-    public void theBookIsRemovedFromTheListOfBooks(String title) {
+    @And("the book {string} is removed from the shopping cart list")
+    public void theBookIsRemovedFromTheShoppingCartList(String title) {
         Assertions.assertNull(shoppingCartPage.getBookByTitle(title));
     }
 

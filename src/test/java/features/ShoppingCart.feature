@@ -44,7 +44,7 @@ Feature: Shopping Cart Functionalities
     And the book "Slayer" is listed in the shopping cart
     When user clicks the delete item action for the book "Slayer"
     Then a message box is shown with a message "Product removed from cart"
-    And the book "Slayer" is removed from the list of books
+    And the book "Slayer" is removed from the shopping cart list
 
   Scenario: Clearing all books from the shopping cart list
     When the user clicks add to cart button for the book titled "Slayer" in the list of books

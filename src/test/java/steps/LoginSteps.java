@@ -54,4 +54,12 @@ public class LoginSteps {
     public void loginIsSuccessfulAndUserIsRedirectedToHomePage() {
         Assertions.assertTrue(homePage.getHomeElement().isDisplayed());
     }
+
+    @And("user is logged in with username {string} and password {string}")
+    public void userIsLoggedInWithUsernameAndPassword(String username, String password) {
+        loginPage.setUsername(username);
+        loginPage.setPassword(password);
+        loginPage.clickLogin();
+        Assertions.assertTrue(homePage.getHomeElement().isDisplayed());
+    }
 }

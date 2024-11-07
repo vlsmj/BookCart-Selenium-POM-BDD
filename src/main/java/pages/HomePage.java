@@ -1,10 +1,7 @@
 package pages;
 
 import base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -53,6 +50,17 @@ public class HomePage extends BasePage {
         return true;
     }
 
+    public boolean verifyBooksHaveHeartIcons() {
+        for (WebElement book : getBooks()) {
+            try {
+                book.findElement(By.xpath(".//span[normalize-space()='favorite']"));
+            } catch (NoSuchElementException exception) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void addToCartBookByTitle(String title) {
         for (WebElement book : getBooks()) {
             String bookTitle = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
@@ -67,6 +75,34 @@ public class HomePage extends BasePage {
                 return;
             }
         }
+    }
+
+    public void addToWishlistBookByTitle(String title) {
+        for (WebElement book : getBooks()) {
+            String bookTitle = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
+            if (title.toLowerCase().equals(bookTitle)) {
+                WebElement heartIcon = book.findElement(By.xpath(".//span[normalize-space()='favorite']"));
+
+                new Actions(driver)
+                        .moveToElement(heartIcon)
+                        .perform();
+
+                waitClickable(heartIcon);
+                return;
+            }
+        }
+    }
+
+    public WebElement getBookStateByTitle(String title, String state) {
+        for (WebElement book : getBooks()) {
+            String bookTitle = book.findElement(By.cssSelector(".card-title")).getText().toLowerCase();
+            if (title.toLowerCase().equals(bookTitle)) {
+                String favouriteState = "favourite-" + state;
+
+                return book.findElement(By.xpath(".//span[contains(@class, '" + favouriteState + "')]"));
+            }
+        }
+        return null;
     }
 
     public double getLowestBookPrice() {
