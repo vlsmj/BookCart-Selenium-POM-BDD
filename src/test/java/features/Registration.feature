@@ -4,17 +4,14 @@ Feature: User Registration
     Given the user navigated to the "registration" page
 
   Rule: Unsuccessful registration
-    Scenario Outline: Registration attempt with empty fields and no selected gender
+    Scenario: Registration attempt with empty fields and no selected gender
       When the user leaves empty inputs and no selected gender
       And the user clicks the register button
-      Then input field "<input_field>" displays the error message "<error_message>" on the registration page
-      Examples:
-        | input_field      | error_message          |
-        | First Name       | First Name is required |
-        | Last Name        | Last Name is required  |
-        | Username         | User Name is required  |
-        | Password         | Password is required   |
-        | Confirm Password | Password is required   |
+      Then input field "First Name" displays the error message "First Name is required" on the registration page
+      Then input field "Last Name" displays the error message "Last Name is required" on the registration page
+      Then input field "Username" displays the error message "User Name is required" on the registration page
+      Then input field "Password" displays the error message "Password is required" on the registration page
+      Then input field "Confirm Password" displays the error message "Password is required" on the registration page
 
     Scenario: Registration attempt with an existing username
       When the user enter valid inputs and selected a gender

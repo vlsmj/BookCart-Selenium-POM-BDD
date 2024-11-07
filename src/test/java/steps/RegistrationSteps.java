@@ -26,11 +26,21 @@ public class RegistrationSteps {
 
     @When("the user leaves empty inputs and no selected gender")
     public void theUserLeavesEmptyInputsAndNoSelectedGender() {
-        registrationPage.setFirstName("");
-        registrationPage.setLastName("");
-        registrationPage.setUsername("");
-        registrationPage.setPassword("");
-        registrationPage.setConfirmPassword("");
+        try {
+            // Add sleep each input field for the delay of showing error messages
+            registrationPage.setFirstName("");
+            Thread.sleep(200);
+            registrationPage.setLastName("");
+            Thread.sleep(200);
+            registrationPage.setUsername("");
+            Thread.sleep(200);
+            registrationPage.setPassword("");
+            Thread.sleep(200);
+            registrationPage.setConfirmPassword("");
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @And("the user clicks the register button")
