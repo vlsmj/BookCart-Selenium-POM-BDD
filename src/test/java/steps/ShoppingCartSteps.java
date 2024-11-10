@@ -7,30 +7,22 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import pages.HomePage;
 import pages.ShoppingCartPage;
 
 public class ShoppingCartSteps {
     private final HeaderComponent headerComponent;
     private final ShoppingCartPage shoppingCartPage;
-    private final HomePage homePage;
 
     public ShoppingCartSteps(DriverHooks driverHooks) {
         WebDriver driver = driverHooks.getDriver();
 
         headerComponent = new HeaderComponent(driver);
         shoppingCartPage = new ShoppingCartPage(driver);
-        homePage = new HomePage(driver);
     }
 
     @And("the shopping cart icon displays a count of {int}")
     public void theShoppingCartIconDisplaysACountOf(int expectedCount) {
         Assertions.assertEquals(expectedCount, headerComponent.getCartCount(expectedCount));
-    }
-
-    @When("the user clicks add to cart button for the book titled {string} in the list of books")
-    public void theUserClicksAddToCartButtonForTheBookTitledInTheListOfBooks(String title) {
-        homePage.addToCartBookByTitle(title);
     }
 
     @When("the user clicks the shopping cart icon")
@@ -63,13 +55,13 @@ public class ShoppingCartSteps {
         Assertions.assertEquals(expectedQuantity, shoppingCartPage.getQuantity(title, expectedQuantity));
     }
 
-    @And("the price for the book {string} amounts to {double}")
-    public void thePriceForTheBookAmountsTo(String title, double price) {
+    @And("the price for the book {string} amounts to {string}")
+    public void thePriceForTheBookAmountsTo(String title, String price) {
         Assertions.assertEquals(price, shoppingCartPage.getPrice(title));
     }
 
-    @And("the cart total price amounts to {double}")
-    public void theCartTotalPriceAmountsTo(double price) {
+    @And("the cart total price amounts to {string}")
+    public void theCartTotalPriceAmountsTo(String price) {
         Assertions.assertEquals(price, shoppingCartPage.getCartTotalPrice());
     }
 
@@ -85,11 +77,19 @@ public class ShoppingCartSteps {
 
     @When("the user clicks the clear cart button")
     public void theUserClicksTheClearCartButton() {
-        shoppingCartPage.clearCart();
+        shoppingCartPage.clickClearCart();
     }
 
     @Then("all books in the shopping cart are removed")
     public void allBooksInTheShoppingCartAreRemoved() {
+        shoppingCartPage.waitForCartToBeEmpty();
+        Assertions.assertTrue(shoppingCartPage.getBooksInCart().isEmpty());
+    }
+
+    @And("the shopping cart is empty empty")
+    public void theShoppingCartIsEmptyEmpty() {
+        shoppingCartPage.clickClearCart();
+        shoppingCartPage.waitForCartToBeEmpty();
         Assertions.assertTrue(shoppingCartPage.getBooksInCart().isEmpty());
     }
 }

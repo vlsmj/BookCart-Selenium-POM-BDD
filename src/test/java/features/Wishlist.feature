@@ -10,6 +10,7 @@ Feature: Wishlist Functionalities
     Background:
       Given the user navigated to the "login" page
       And user is logged in with username "test222" and password "Password1"
+      And the user navigated to the "wishlist" page
       And the wishlist is empty
       And the user navigated to the "home" page
 

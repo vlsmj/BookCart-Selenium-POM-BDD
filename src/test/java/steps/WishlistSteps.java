@@ -20,10 +20,10 @@ public class WishlistSteps {
     public WishlistSteps(DriverHooks driverHooks) {
         WebDriver driver = driverHooks.getDriver();
 
-        this.wishlistPage = new WishlistPage(driver);
-        this.homePage = new HomePage(driver);
-        this.headerComponent = new HeaderComponent(driver);
-        this.commonActions = new CommonActions(driver);
+        wishlistPage = new WishlistPage(driver);
+        homePage = new HomePage(driver);
+        headerComponent = new HeaderComponent(driver);
+        commonActions = new CommonActions(driver);
     }
 
     @And("heart icons are not displayed for each book in the list")
@@ -83,12 +83,14 @@ public class WishlistSteps {
 
     @And("all books in the wishlist are removed")
     public void allBooksInTheWishlistAreRemoved() {
+        wishlistPage.waitForWishlistToBeEmpty();
         Assertions.assertTrue(wishlistPage.getBooksInWishlist().isEmpty());
     }
 
     @And("the wishlist is empty")
     public void theWishlistIsEmpty() {
-        commonActions.navigateTo("wishlist");
         wishlistPage.clearWishlist();
+        wishlistPage.waitForWishlistToBeEmpty();
+        Assertions.assertTrue(wishlistPage.getBooksInWishlist().isEmpty());
     }
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
     protected WebDriver driver;
@@ -52,5 +53,9 @@ public class BasePage {
 
     public void waitTextToBe(WebElement webElement, String text) {
         webDriverWait.until(_ -> webElement.getText().equals(text));
+    }
+
+    public void waitListToBeEmpty(List<WebElement> webElementList) {
+        webDriverWait.until(_ -> webElementList.isEmpty());
     }
 }

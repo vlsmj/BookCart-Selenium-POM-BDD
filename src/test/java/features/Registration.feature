@@ -19,7 +19,7 @@ Feature: User Registration
       And the user clicks the register button
       Then input field "Username" displays the error message "User Name is not available" on the registration page
 
-    Scenario: Registration attempt with a password with less than 8 characters
+    Scenario: Registration attempt with a password of less than 8 characters
       When the user enter valid inputs and selected a gender
       And the user enters a password "1234567" on the registration page
       And the user enters a confirm password "1234567" on the registration page

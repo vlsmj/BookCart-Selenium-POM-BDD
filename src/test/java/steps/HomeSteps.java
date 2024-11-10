@@ -9,12 +9,15 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 
+import static utils.NumberUtils.convertPriceToDouble;
+
 public class HomeSteps {
     private final HomePage homePage;
 
     public HomeSteps(DriverHooks driverHooks) {
         WebDriver driver = driverHooks.getDriver();
-        this.homePage = new HomePage(driver);
+
+        homePage = new HomePage(driver);
     }
 
     @Then("there is a list of books displayed")
@@ -42,23 +45,28 @@ public class HomeSteps {
         homePage.clickCategory(categoryName);
     }
 
-    @When("the user sets the maximum price to {int}")
-    public void theUserSetsTheMaximumPriceTo(int price) {
-        homePage.slidePriceTo(price);
+    @When("the user sets the maximum price to {string}")
+    public void theUserSetsTheMaximumPriceTo(String price) {
+        homePage.slidePriceTo(convertPriceToDouble(price));
     }
 
-    @And("the lowest priced book is not less than {int}")
-    public void theLowestPricedBookIsNotLessThan(int price) {
-        Assertions.assertFalse(homePage.getLowestBookPrice() < price);
+    @And("the lowest priced book is not less than {string}")
+    public void theLowestPricedBookIsNotLessThan(String price) {
+        Assertions.assertFalse(homePage.getLowestBookPrice() < convertPriceToDouble(price));
     }
 
-    @And("the maximum priced book is not greater than {int}")
-    public void theMaximumPricedBookIsNotGreaterThan(int price) {
-        Assertions.assertFalse(homePage.getHighestBookPrice() > price);
+    @And("the maximum priced book is not greater than {string}")
+    public void theMaximumPricedBookIsNotGreaterThan(String price) {
+        Assertions.assertFalse(homePage.getHighestBookPrice() > convertPriceToDouble(price));
     }
 
     @When("the user clicks the first book in the list")
     public void theUserClicksTheFirstBookInTheList() {
         homePage.clickFirstBook();
+    }
+
+    @When("the user clicks add to cart button for the book titled {string} on the home page")
+    public void theUserClicksAddToCartButtonForTheBookTitledOnTheHomePage(String title) {
+        homePage.addToCartBookByTitle(title);
     }
 }

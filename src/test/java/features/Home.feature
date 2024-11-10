@@ -12,7 +12,7 @@ Feature: Home Product List and Price Filter
     Then there is a list of books displayed
 
   Scenario: Using the price filter
-    When the user sets the maximum price to 611
+    When the user sets the maximum price to "₹611.00"
     Then there is a list of books displayed
-    And the lowest priced book is not less than 111
-    And the maximum priced book is not greater than 611
+    And the lowest priced book is not less than "₹111.00"
+    And the maximum priced book is not greater than "₹611.00"

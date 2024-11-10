@@ -34,6 +34,10 @@ public class WishlistPage extends BasePage {
         return listOfBooksWishlist;
     }
 
+    public void waitForWishlistToBeEmpty() {
+        waitListToBeEmpty(getBooksInWishlist());
+    }
+
     public WebElement getBookByTitle(String title) {
         for (WebElement book : getBooksInWishlist()) {
             String bookTitle = book.findElement(By.cssSelector(".mat-column-title")).getText().toLowerCase();

@@ -2,14 +2,13 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-
-import static utils.NumberUtils.convertPriceToDouble;
 
 public class ShoppingCartPage extends BasePage {
 
@@ -25,6 +24,9 @@ public class ShoppingCartPage extends BasePage {
     @FindBy(xpath = "//button[normalize-space()='Clear cart']")
     WebElement buttonClearCart;
 
+    @FindBy(xpath = "//button[normalize-space()='CheckOut']")
+    WebElement buttonCheckOut;
+
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -36,6 +38,10 @@ public class ShoppingCartPage extends BasePage {
 
     public List<WebElement> getBooksInCart() {
         return listOfBooksCart;
+    }
+
+    public void waitForCartToBeEmpty() {
+        waitListToBeEmpty(getBooksInCart());
     }
 
     public WebElement getBookByTitle(String title) {
@@ -68,13 +74,13 @@ public class ShoppingCartPage extends BasePage {
         return Integer.parseInt(quantity.getText());
     }
 
-    public double getPrice(String title) {
-        WebElement quantity = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-total')]"));
-        return convertPriceToDouble(quantity.getText());
+    public String getPrice(String title) {
+        WebElement price = getBookByTitle(title).findElement(By.xpath(".//td[contains(@class, 'mat-column-total')]"));
+        return price.getText();
     }
 
-    public double getCartTotalPrice() {
-        return convertPriceToDouble(cartTotal.getText());
+    public String getCartTotalPrice() {
+        return cartTotal.getText();
     }
 
     public void removeBook(String title) {
@@ -82,7 +88,15 @@ public class ShoppingCartPage extends BasePage {
         deleteIcon.click();
     }
 
-    public void clearCart() {
-        buttonClearCart.click();
+    public void clickClearCart() {
+        try {
+            buttonClearCart.click();
+        } catch (NoSuchElementException exception) {
+            System.out.println("Shopping cart is empty. Skipping clear button click.");
+        }
+    }
+
+    public void clickCheckOut() {
+        buttonCheckOut.click();
     }
 }

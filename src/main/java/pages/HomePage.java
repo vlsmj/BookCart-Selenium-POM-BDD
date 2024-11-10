@@ -143,11 +143,11 @@ public class HomePage extends BasePage {
         getBooks().getFirst().click();
     }
 
-    public void slidePriceTo(int price) {
+    public void slidePriceTo(double price) {
         try {
             int max = Integer.parseInt(Objects.requireNonNull(priceSlider.getAttribute("max")));
             int step = Integer.parseInt(Objects.requireNonNull(priceSlider.getAttribute("step")));
-            int enterCount = (max / step) - (price / step);
+            double enterCount = ((double) max / step) - (price / step);
 
             for (int i = 0; i < enterCount; i++) {
                 priceSlider.sendKeys(Keys.LEFT);
