@@ -3,6 +3,7 @@ This project showcases the use Page Object Model (POM) design pattern and Page F
 
 ## Concepts Covered
 - Selenium WebDriver using Java as the programming language
+- Page Factory using @FindBy annotation
 - JUnit as the testing framework
 - Cucumber and Gherkin Syntax
 - Features and Step Definitions
