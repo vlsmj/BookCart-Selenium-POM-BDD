@@ -1,5 +1,5 @@
 # BookCart-Selenium-POM-BDD
-This project showcases the use Page Object Model (POM) design pattern and Page Factory in Selenium that also supports Behavior-Driven Development (BDD) using Cucumber on a website called BookCart. [BookCart](https://github.com/AnkitSharma-007/bookcart) is an e-commerce application for an online book store and is created for testing purposes.
+This project demonstrates the use of Page Object Model (POM) design pattern and Page Factory in Selenium, which also supports Behavior-Driven Development (BDD) using Cucumber on a website called BookCart. [BookCart](https://github.com/AnkitSharma-007/bookcart) is an e-commerce application for an online book store and is created for testing purposes.
 
 ## Concepts Covered
 - Selenium WebDriver using Java as the programming language
